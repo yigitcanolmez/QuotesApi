@@ -12,21 +12,37 @@ namespace QuotesApi.Controllers
     [Route("[controller]")]
     public class QuoteController : Controller
     {
-         static List<Quote> quotes = new List<Quote>
+        static List<Quote> quotes = new List<Quote>
         {
-            new Quote { Author ="Yiğitcan Ölmez", Id = Guid.NewGuid(), Description = "Biyografi", Title ="Y.Ö." },
-            new Quote { Author ="Yiğitcan Ölmez", Id = Guid.NewGuid(), Description = "Biyografi", Title ="Y.Ö." },
+            new Quote { Author ="Yiğitcan Ölmez", Id = Guid.NewGuid(), Description = "Biyografi", Title ="Y.Ö.1" },
+            new Quote { Author ="Yiğitcan Ölmez", Id = Guid.NewGuid(), Description = "Biyografi", Title ="Y.Ö.2" },
 
         };
+
         [HttpGet]
         public IEnumerable<Quote> Get()
         {
             return quotes;
         }
+
         [HttpPost]
-        public IActionResult Post([FromBody]Quote quote)
+        public IActionResult Post([FromBody] Quote quote)
         {
             quotes.Add(quote);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Quote quote)
+        {
+            quotes[id] = quote;
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            quotes.RemoveAt(id);
             return Ok();
         }
     }
