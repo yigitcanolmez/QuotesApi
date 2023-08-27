@@ -3,44 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using QuotesApi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace QuotesApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class QuoteController : Controller
     {
-        // GET: api/values
+         static List<Quote> quotes = new List<Quote>
+        {
+            new Quote { Author ="Yiğitcan Ölmez", Id = Guid.NewGuid(), Description = "Biyografi", Title ="Y.Ö." },
+            new Quote { Author ="Yiğitcan Ölmez", Id = Guid.NewGuid(), Description = "Biyografi", Title ="Y.Ö." },
+
+        };
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Quote> Get()
         {
-            return new string[] { "value1", "value2" };
+            return quotes;
         }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Quote quote)
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            quotes.Add(quote);
+            return Ok();
         }
     }
 }
