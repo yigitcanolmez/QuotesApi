@@ -1,6 +1,14 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.EntityFrameworkCore;
+using QuotesApi.Data;
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<QuoteDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("Sql"));
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
