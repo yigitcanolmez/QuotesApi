@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using QuotesApi.Data;
 using QuotesApi.Models;
 
@@ -19,9 +20,29 @@ namespace QuotesApi.Controllers
 
         // GET: api/<EfQuoteController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get(string sort)
         {
-            return new string[] { "value1", "value2" };
+            //ıenumerable database tarafına select * from olarak gider
+            //Iqueryable database tarafına select * from where .... olarak gider
+            IQueryable<Quote> quotes;
+            quotes = sort switch
+            {
+                "desc" => _context.Quotes.OrderByDescending(q => q.CreatedAt),
+                "asc" => _context.Quotes.OrderBy(q => q.CreatedAt),
+                _ => _context.Quotes
+            };
+            return Ok(quotes);
+
+        }
+        [HttpGet("[action]")]
+        public IActionResult PagingQuote(int pageNumber, int pageSize)
+        {
+            var quotes = _context.Quotes.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+
+            return Ok(quotes);
+
+             
         }
 
         [HttpGet("{id}")]
@@ -39,6 +60,7 @@ namespace QuotesApi.Controllers
         [HttpPost]
         public void Post([FromBody] Quote quote)
         {
+            quote.Id = Guid.NewGuid();
             _context.Quotes.Add(quote);
             _context.SaveChanges();
         }
