@@ -44,6 +44,12 @@ namespace QuotesApi.Controllers
 
              
         }
+        [HttpGet("[action]")]
+        public IActionResult SearchingQuote(string type)
+        {
+            var quotes = _context.Quotes.Where(p => p.Title.Contains(type));
+            return Ok();
+        }
 
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
