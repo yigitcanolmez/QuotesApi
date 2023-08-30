@@ -9,6 +9,7 @@ builder.Services.AddDbContext<QuoteDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Sql"));
 });
+builder.Services.AddResponseCaching();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -19,6 +20,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseResponseCaching();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

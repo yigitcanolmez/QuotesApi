@@ -20,8 +20,9 @@ namespace QuotesApi.Controllers
 
         // GET: api/<EfQuoteController>
         [HttpGet]
+        [ResponseCache(Duration = 60,Location = ResponseCacheLocation.Client)]
         public IActionResult Get(string sort)
-        {
+            {
             //ıenumerable database tarafına select * from olarak gider
             //Iqueryable database tarafına select * from where .... olarak gider
             IQueryable<Quote> quotes;
@@ -35,6 +36,8 @@ namespace QuotesApi.Controllers
 
         }
         [HttpGet("[action]")]
+
+
         public IActionResult PagingQuote(int pageNumber, int pageSize)
         {
             var quotes = _context.Quotes.Skip((pageNumber - 1) * pageSize).Take(pageSize);
@@ -42,7 +45,7 @@ namespace QuotesApi.Controllers
 
             return Ok(quotes);
 
-             
+
         }
         [HttpGet("[action]")]
         public IActionResult SearchingQuote(string type)
