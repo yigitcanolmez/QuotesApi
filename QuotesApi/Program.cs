@@ -3,7 +3,7 @@ using QuotesApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddXmlSerializerFormatters();
 
 builder.Services.AddDbContext<QuoteDbContext>(opt =>
 {
