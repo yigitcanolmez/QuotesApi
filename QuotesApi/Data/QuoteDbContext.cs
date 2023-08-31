@@ -9,7 +9,6 @@ namespace QuotesApi.Data
         {
 
         }
-
         public DbSet<Quote> Quotes { get; set; }
     }
 }

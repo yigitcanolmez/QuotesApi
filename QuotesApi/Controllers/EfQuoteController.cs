@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using QuotesApi.Data;
 using QuotesApi.Models;
@@ -7,6 +8,7 @@ using QuotesApi.Models;
 
 namespace QuotesApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EfQuoteController : ControllerBase
@@ -20,9 +22,9 @@ namespace QuotesApi.Controllers
 
         // GET: api/<EfQuoteController>
         [HttpGet]
-        [ResponseCache(Duration = 60,Location = ResponseCacheLocation.Client)]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public IActionResult Get(string sort)
-            {
+        {
             //ıenumerable database tarafına select * from olarak gider
             //Iqueryable database tarafına select * from where .... olarak gider
             IQueryable<Quote> quotes;

@@ -10,8 +10,8 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.Authority = "https://dev-iaz33aj5ecqggglu.us.auth0.com/";
-    options.Audience = "http://localhost:5123/";
+    options.Authority = "https://dev-iaz33aj5ecqggglu.us.auth0.com";
+    options.Audience = "http://localhost:5123";
 });
 
 builder.Services.AddControllers().AddXmlSerializerFormatters();
