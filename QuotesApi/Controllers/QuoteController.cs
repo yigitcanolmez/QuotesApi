@@ -25,7 +25,7 @@ namespace QuotesApi.Controllers
             return quotes;
         }
 
-        [HttpPost]
+        [HttpPost("Post")]
         public IActionResult Post([FromBody] Quote quote)
         {
             quotes.Add(quote);
