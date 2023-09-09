@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh 'dotnet build'
                 
-                sh 'dotnet publish -c Release -o ./publish-folder'              
+                sh 'dotnet publish -c Release'              
             }
         }
     }
