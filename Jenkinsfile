@@ -10,7 +10,10 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-            bat 'mvn sonar:sonar'
+            steps{
+                            bat 'mvn sonar:sonar'
+
+            }
         }
     }
 }
