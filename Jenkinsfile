@@ -9,13 +9,8 @@ pipeline {
                 bat 'dotnet publish -c Release'
             }
         }
-      stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner for MSBuild'
-    withSonarQubeEnv() {
-      bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"Quotes.Api\""
-      bat "dotnet build"
-      bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
-    }
-  }
+        stage('SonarQube Analysis') {
+            bat 'mvn sonar:sonar'
+        }
     }
 }
