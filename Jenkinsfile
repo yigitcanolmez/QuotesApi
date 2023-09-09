@@ -4,9 +4,9 @@ pipeline {
     stages {
         stage('Build and Publish') {
             steps {
-                sh 'dotnet build'
+                bat 'dotnet build'
                 
-                sh 'dotnet publish -c Release'              
+                bat 'dotnet publish -c Release'              
             }
         }
     }
