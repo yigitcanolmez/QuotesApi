@@ -7,10 +7,10 @@ pipeline {
                 bat 'dotnet build'
 
                 bat 'dotnet publish -c Release'
+                            bat 'mvn sonar:sonar'
+
             }
         }
-        stage('SonarQube Analysis') {
-            bat 'mvn sonar:sonar'
-        }
+     
     }
 }
