@@ -2,15 +2,7 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    checkout scm
-                }
-            }
-        }
-        
-        stage('Build and Publish') {
+         stage('Build and Publish') {
             steps {
                 bat 'dotnet build'
                 
