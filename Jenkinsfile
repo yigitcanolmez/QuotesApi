@@ -9,10 +9,16 @@ pipeline {
                 bat 'dotnet publish -c Release'
             }
         }
-        stage('SonarQube Analysis') {
-            steps{
-                            bat 'mvn sonar:sonar'
-
+  stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "./gradlew sonarqube"
+                }
+            }
+        }
+        stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
             }
         }
     }
