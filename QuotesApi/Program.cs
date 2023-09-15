@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using QuotesApi.Data;
+using QuotesApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +14,11 @@ builder.Services.AddAuthentication(options =>
     options.Authority = "https://dev-iaz33aj5ecqggglu.us.auth0.com";
     options.Audience = "http://localhost:5123";
 });
+ 
 
 builder.Services.AddControllers().AddXmlSerializerFormatters();
 
+ 
 builder.Services.AddDbContext<QuoteDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Sql"));
@@ -33,11 +36,14 @@ if (app.Environment.IsDevelopment())
 }
 app.UseResponseCaching();
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+
 
 app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+app.UseMiddleware<DenemeMiddleware>();
 
 app.Run();
 
