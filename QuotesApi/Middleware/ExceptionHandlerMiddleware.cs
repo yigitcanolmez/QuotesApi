@@ -3,11 +3,9 @@
     public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _requestDelegate;
-        private readonly ILogger _logger;
-        public ExceptionHandlerMiddleware(RequestDelegate requestDelegate, ILogger<ExceptionHandlerMiddleware> logger)
+         public ExceptionHandlerMiddleware(RequestDelegate requestDelegate, ILogger<ExceptionHandlerMiddleware> logger)
         {
             _requestDelegate = requestDelegate;
-            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
